@@ -2,11 +2,15 @@ services:
   db:
     image: postgres:18
     environment:
+      # Initialize the database with a deterministic user/password
+      # NOTE: if you change these values after the database has been created the
+      #       password will not automatically update. You must remove the
+      #       pgdata volume (docker compose down -v) to reinitialise the DB.
       POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+      POSTGRES_PASSWORD: pass
       POSTGRES_DB: catalog_db
     ports:
-      - "5432:5432"
+      - "5431:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -24,7 +28,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/catalog_db
       SPRING_DATASOURCE_USERNAME: user
-      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_DATASOURCE_PASSWORD: pass
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
     ports:
