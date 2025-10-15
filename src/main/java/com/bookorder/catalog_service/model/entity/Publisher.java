@@ -18,9 +18,8 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
-    private String hqLoaction;
+    private String hqLocation;
 
     @OneToMany(mappedBy = "publisher")
     private List<Book> booksList;
